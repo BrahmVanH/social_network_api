@@ -1,4 +1,5 @@
 // User functions 
+module.exports = [
 
 const getAllUsers = () => {};
 
@@ -15,6 +16,8 @@ const deleteUser = () => {};
 const addFriend = () => {};
 
 const removeFriend = () => {};
+
+];
 
 
 
