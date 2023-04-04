@@ -1,0 +1,21 @@
+{
+  "name": "social_network_api",
+  "version": "1.0.0",
+  "description": "Models\r     User\r         username\r         email\r         thoughts (array of _id values references thought model)\r         friends (array of _id values referencing the user model (self-reference))\r         Settings\r             virtual('friend count')\r     Thought\r         thought text\r         createdAt\r         username\r         reactions\r         settings\r             virtual('reactionCount')\r     Reaction (SCHEMA ONLY... ?)\r         reactionId\r         reactionBody\r         username\r         createdAt\r         this is not a model, use this stuff as the reaction fields SUBDOCUMENT schema in throught model",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index",
+    "seed": "node utils/seed"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
