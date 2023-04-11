@@ -1,18 +1,6 @@
 const { ObjectId } = require('mongoose').Types;
 const { User, Thought } = require('../models');
 
-
-const friends = async (userId) => 
-    User.aggregate([
-        { $match: { _id: ObjectId(userId) } },
-        {
-            $unwind: '$thoughts',
-        },
-        {
-            $group
-        }
-    ])
-
 // User functions 
 module.exports = {
 
@@ -49,20 +37,57 @@ module.exports = {
             .then((user) => res.json(user))
             .catch((err) => res.status(500).json(err));
     },
+    deleteUser(req, res) {
+        User.findOneAndRemove({ _id: req.params.userId })
+            .then((user) =>
+            !user
+                ? res.status(404).json({ message: "No user with that ID exists" })
+                : Thought.deleteMany({ username: user.username})
+            )
+            .catch((err) => {
+                console.log(err);
+                res.status(500).json(err);
+            });
+    },
+    updateUser(req, res) {
+        User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $set: req.body }.
+            { runValidators: true, new: true }
+        )
+            .then((user) =>
+            !user
+                ? res.status(404).json({ message: 'No user with that ID' })
+                : res.json(user)
+            )
+            .catch((err) => res.status(500).json(err));
+    },
+    addFriend(req, res) {
+        User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $push: { friends: req.params.friendId } },
+            { new: true, runValidators: true }
+        )
+            .then((user) => 
+            !user
+                ? res.status(404).json({ message: 'No user with this ID!' })
+                : res.json(user)
+            )
+            .catch((err) => res.status(500).json(err));
+    },
+    removeFriend(req, res) {
+        User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $pull: { friends: req.params.friendId } },
 
-
-const createUser = () => {};
-
-const updateUser = () => {};
-
-const deleteUser = () => {};
-
-// User-friend functions
-
-const addFriend = () => {};
-
-const removeFriend = () => {};
-
+        )
+            .then((user) => 
+            !user
+                ?res.status(404).json({ message: "No users found with that Id" })
+                : res.json(user)
+            )
+            .catch((err) => res.status(500).json(err));
+    },
 };
 
 
