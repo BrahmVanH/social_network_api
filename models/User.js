@@ -1,4 +1,4 @@
-const { Schema, Types } = require('mongoose');
+const { Schema, model } = require('mongoose');
 const Thought = require('./Thought');
 
 const userSchema = new Schema(
@@ -33,7 +33,7 @@ const userSchema = new Schema(
       getters: true,
       virtuals: true,
     },
-    id: false,
+    
   }
 );
 
