@@ -1,6 +1,27 @@
+const { ObjectId } = require('mongoose').Types;
+const { User, Thought } = require('../models');
+
+module.exports = {
+	getAllThoughts(req, res) {
+		Thought.find()
+			.then(async (thoughts) => {
+				const thoughtObj = {
+					thoughs,
+				};
+				return res.json(thoughtObj);
+			})
+			.catch((err) => {
+				console.log(err);
+				return res.status(500).json(err);
+			});
+	},
+	getSingleThought(req, res) {
+		Thought.findOne({ _id: req.params.thoughtId }).select('-');
+	},
+};
+
 // All thoughts by single user? Or of all users?
 const getAllThoughts = () => {};
-
 
 // Get single thought by id
 const getSingleThought = () => {};
@@ -14,7 +35,7 @@ const editThoughtById = () => {};
 
 const deleteThoughtById = () => {};
 
-// Reaction functions 
+// Reaction functions
 
 const createReaction = () => {};
 //Need function to add reaction to reactionId array in thoughts
