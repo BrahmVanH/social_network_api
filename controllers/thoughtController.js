@@ -16,29 +16,74 @@ module.exports = {
 			});
 	},
 	getSingleThought(req, res) {
-		Thought.findOne({ _id: req.params.thoughtId }).select('-');
+		Thought.findOne({ _id: req.params.thoughtId })
+			.select('-')
+			.then(async (thought) =>
+				!thought
+					? res.status(404).json({ message: 'No thoughts found with that Id!' })
+					: res.json({ thought })
+			)
+			.catch((err) => {
+				console.log(err);
+				return res.status(500).json(err);
+			});
 	},
+	createThought(req, res) {
+		Thought.create({
+			thoughtText: req.params.thoughtText,
+			username: req.params.username,
+		})
+			.then(({ _id }) =>
+				User.findOneAndUpdate(
+					{ _id: req.params.userId },
+					{ $push: { thoughts: _id } },
+					{ new: true }
+				)
+			)
+			.then((thought) => res.json(thought))
+			.catch((err) => res.status(500).json(err));
+	},
+	updateThought(req, res) {
+		Thought.findOneAndUpdate(
+			{ _id: req.params.thoughtId },
+			{ $set: req.body },
+			{ runValidators: true, new: true }
+		)
+			.then((thought) =>
+				!thought
+					? res.status(404).json({ message: 'No thoughts with that id!' })
+					: res.json(thought)
+			)
+			.catch((err) => res.status(500).json(err));
+	},
+	deleteThought(req, res) {
+		Thought.findOneAndRemove({ _id: req.params.thoughtId })
+			.then((thought) =>
+				!thought
+					? res.status(404).json({ message: 'No thoughts with that id!' })
+					: res.json(thought)
+			)
+			.catch((err) => {
+				console.log(err);
+				res.status(500).json(err);
+			});
+	},
+  createReaction(req, res) {
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $push: { reactions: { reactionBody: req.body.reactionBody, username: req.body.username } } },
+      { runValidator: true, new: true }
+    )
+    .then((thought) => 
+    !thought
+      ? res.status(404).json({ message: "No thoughts found with that Id!" })
+      : res.json(thought)
+      )
+      .catch((err) => res.status(500).json(err));
+  }
 };
-
-// All thoughts by single user? Or of all users?
-const getAllThoughts = () => {};
-
-// Get single thought by id
-const getSingleThought = () => {};
-
-// This should create a new thought for the DB
-const createNewThought = () => {};
-// Need a function to add thought to associated user's array of thought id's
-const addThoughtToUser = () => {};
-
-const editThoughtById = () => {};
-
-const deleteThoughtById = () => {};
 
 // Reaction functions
 
-const createReaction = () => {};
-//Need function to add reaction to reactionId array in thoughts
-const addReactionToThought = () => {};
 
 const removeReactionById = () => {};
