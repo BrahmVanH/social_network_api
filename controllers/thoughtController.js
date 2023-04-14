@@ -6,7 +6,7 @@ module.exports = {
 		Thought.find()
 			.then(async (thoughts) => {
 				const thoughtObj = {
-					thoughs,
+					thoughts,
 				};
 				return res.json(thoughtObj);
 			})
@@ -30,12 +30,12 @@ module.exports = {
 	},
 	createThought(req, res) {
 		Thought.create({
-			thoughtText: req.params.thoughtText,
-			username: req.params.username,
+			thoughtText: req.body.thoughtText,
+			username: req.body.username,
 		})
 			.then(({ _id }) =>
 				User.findOneAndUpdate(
-					{ _id: req.params.userId },
+					{ _id: req.body.userId },
 					{ $push: { thoughts: _id } },
 					{ new: true }
 				)
