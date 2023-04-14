@@ -14,7 +14,7 @@ const userSchema = new Schema(
 			unique: true,
 			// ADD VALIDATION USING REGEX
 		},
-		thoughts: [
+		thoughtIds: [
 			{
 				type: Schema.Types.ObjectId,
 				ref: 'Thought',
