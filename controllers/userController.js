@@ -35,7 +35,7 @@ module.exports = {
 			.catch((err) => res.status(500).json(err));
 	},
 	deleteUser(req, res) {
-		User.findOneAndRemove({ _id: req.params.userId })
+		User.findOneAndRemove({ _id: req.body.userId })
 			.then((user) =>
 				!user
 					? res.status(404).json({ message: 'No user with that ID exists' })
@@ -61,7 +61,7 @@ module.exports = {
 	},
 	addFriend(req, res) {
 		User.findOneAndUpdate(
-			{ _id: req.params.userId },
+			{ _id: req.body.userId },
 			{ $push: { friends: req.body.friendId } },
 			{ new: true, runValidators: true }
 		)
