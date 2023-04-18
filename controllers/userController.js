@@ -17,7 +17,7 @@ module.exports = {
 			});
 	},
 	getSingleUser(req, res) {
-		User.findOne({ _id: req.params.userId })
+		User.findOne({ _id: req.body._id })
 			.select('-__v')
 			.then(async (user) =>
 				!user
@@ -48,8 +48,8 @@ module.exports = {
 	},
 	updateUser(req, res) {
 		User.findOneAndUpdate(
-			{ _id: req.params.userId },
-			{ $set: req.body },
+			{ _id: req.body.userId },
+			{ $set: { username: req.body.username, email: req.body.email } },
 			{ runValidators: true, new: true }
 		)
 			.then((user) =>

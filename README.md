@@ -1,44 +1,53 @@
-Models
-    User
-        username
-        email
-        thoughts (array of _id values references thought model)
-        friends (array of _id values referencing the user model (self-reference))
-        Settings
-            virtual('friend count')
-    Thought
-        thought text
-        createdAt
-        username
-        reactions
-        settings
-            virtual('reactionCount')
-    Reaction (SCHEMA ONLY... ?)
-        reactionId
-        reactionBody
-        username
-        createdAt
-        this is not a model, use this stuff as the reaction fields SUBDOCUMENT schema in throught model
+# Social Network API
 
-Routes
-    /api/users
-        get all users
-        get a singe user by id
-        post new user
-        put to update user by its id
-        delete to remove user by id
-    /api/users/:userId/friends/:friendId
-        post to add a new friend to a users friend list
-        delete to remove a friend from a users friend list
-    
-    /api/thoughts/
-        get to get all thoughts
-        get to get a single thought by _id
-        post o create a new thought (push the created thoughts id to the associated users thought array field)
-        put to update a thought by id
-        delete to remove a thought by its id
-    
-    /api/thoughts/:thoughtId/reactions
-        POST to create a reaction stored in a single thought's reactions array field
-        DELETE to pull and remove a reaction by the reaction's reactionId value
-    
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)]
+
+## Description
+
+This project utilizes node, mongoose, and express to allow users to create, read, update, and delete users, thoughts, and reactions in the back end of a social network. This project allows people to publish their thoughts and lets them interact with other users and their thoughts.
+
+## Table of Contents
+
+⋆[Installation](#Installation)
+⋆[Usage](#Usage)
+⋆[Credits](#Credits)
+⋆[License](#License)
+⋆[Features](#Features)
+⋆[Contributions](#Contributions)
+⋆[Test](#Contributions)
+
+## Installation
+
+This application requires the installation of nodejs on your machine, as well as several dependencies. To view all dependencies, see package.json in the root folder. To install all dependencies, navigate to the root directory for this application then enter 'npm install'.
+
+## Usage
+
+Once your dependencies have been installed, use the command 'npm start.' This will start the server and allow you to interact with the API . Once the server is running, proceed to your API Client (i.e. Insomnia) and navigate to the port listed in your CLI. From here you should be able to follow any of the listed endpoints '/api/...' to create, remove, update, or delete database items.
+
+## Credits
+
+N/A
+
+## License
+
+(https://opensource.org/licenses/MIT)
+
+## Features
+
+N/A
+
+## Contributions
+
+N/A
+
+## Test
+
+N/A
+
+## Questions
+
+If you have any questions about the project you can reach out to me via email or GitHub with the information below.
+
+> Email: brahmvanh@gmail.com
+
+> GitHub: [BrahmVanH](https://github.com/BrahmVanH)

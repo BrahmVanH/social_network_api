@@ -20,6 +20,36 @@ const usernames = [
 	'sweet_sunflower',
 	'sparkling_star',
 	'magical_moon',
+	'PixelPenguin123',
+	'LunarLioness22',
+	'MountainMustang55',
+	'ElectricEagle77',
+	'CrimsonCobra99',
+	'NeonNinja12',
+	'GoldenGorilla34',
+	'SapphireSiren88',
+	'JadeJaguar11',
+	'EmeraldElephant66',
+	'PlatinumPanther44',
+	'DiamondDragon99',
+	'TopazTiger21',
+	'BronzeBear77',
+	'RubyRaccoon12',
+	'OpalOtter88',
+	'AmberAntelope55',
+	'AquamarineArmadillo34',
+	'PearlPanda99',
+	'GarnetGazelle11',
+	'PeridotPuma66',
+	'QuartzQuail44',
+	'TurquoiseToucan21',
+	'CopperCrocodile77',
+	'OnyxOcelot12',
+	'SilverSeahorse88',
+	'MalachiteMonkey55',
+	'ObsidianOwl34',
+	'ZirconZebra99',
+	'TanzaniteTurtle11',
 ];
 
 const emailAddresses = [
@@ -43,6 +73,35 @@ const emailAddresses = [
 	'matthewgreen5678@runbox.com',
 	'oliviaturner2468@mailinator.com',
 	'kevinmartin1357@mailnesia.com',
+	'johndoe1234@gmail.com',
+	'janejones5678@yahoo.com',
+	'alexsmith4321@hotmail.com',
+	'davidsanchez8765@outlook.com',
+	'laurawilson2468@aol.com',
+	'jasonlee1357@icloud.com',
+	'samanthajones9876@protonmail.com',
+	'ryanmiller4321@gmx.com',
+	'emilytaylor5678@mail.com',
+	'josephsmith2468@yandex.com',
+	'annalee1357@inbox.com',
+	'patrickdavis8765@zoho.com',
+	'kristinawilson9876@fastmail.com',
+	'johnrobinson4321@tutanota.com',
+	'carolynmitchell2468@mailbox.org',
+	'andrewmurray1357@pm.me',
+	'aliciabrown8765@hushmail.com',
+	'matthewgreen5678@runbox.com',
+	'oliviaturner2468@mailinator.com',
+	'kevinmartin1357@mailnesia.com',
+	'justinjones4321@protonmail.com',
+	'bethanydavis8765@tutanota.com',
+	'ethanparker2468@mail.com',
+	'sophiawalker1357@yandex.com',
+	'michaeljackson9876@icloud.com',
+	'amandasmith2468@gmail.com',
+	'williamturner1357@outlook.com',
+	'victoriaadams5678@yahoo.com',
+	'charlesbaker4321@aol.com',
 ];
 
 const thoughts = [
@@ -91,16 +150,52 @@ const reactions = [
 	"I'm grateful to be a part of a community where we can share and learn from each other like this.",
 ];
 
-const getRandomArrItem = (array) => array[Math.floor(Math.random * array.length)];
+const getRandomArrItem = (array) =>
+	array[Math.floor(Math.random() * array.length)];
 
-const getRandomUsername = (usernames) => {
-  getRandomArrItem(usernames);
+const getUsernames = (int) => {
+	usernamesArray = [];
+	for (i = 0; i < int; i++) {
+		usernames.push(usernames[i]);
+	}
+  return usernamesArray;
 };
 
-const getRandomThought = (thoughts) => {
-  getRandomArrItem(thoughts);
+const getEmails = (int) => {
+	emailsArray = [];
+	for (i = 0; i < int; i++) {
+		emailsArray.push(emailAddresses[i]);
+	}
+  return emailsArray;
 };
 
-const getRandomReaction = (reactions) => {
-  getRandomArrItem(reactions);
-}
+const getRandomThought = () => {
+	`${getRandomArrItem(thoughts)}`;
+};
+
+const getRandomReaction = () => {
+	`${getRandomArrItem(reactions)}`;
+};
+
+const getRandomUser = (int) => {
+	console.log('getting random user...');
+
+	users = [];
+
+	for (let i = 0; i < int; i++) {
+		console.log('adding user to array...');
+		users.push({
+			username: getRandomArrItem(usernames),
+			email: getRandomArrItem(emailAddresses),
+		});
+	}
+};
+
+// user: username & email
+// thought: thoughtText & username
+module.exports = {
+	getUsernames,
+	getEmails,
+	getRandomThought,
+	getRandomReaction,
+};
